@@ -22,7 +22,7 @@ public final class CatalogoVista extends JPanel {
     public final JButton guardar = new JButton("Guardar");
     public final JButton cargar = new JButton("Recargar");
     public final JTable tabla = new JTable(Estilo.columnas(
-            "Código", "Material", "Categoría", "Marca", "Unidad", "Precio", "Stock", "Estado"));
+            "Código", "Material", "Categoría", "Marca", "Unidad", "Precio", "Stock","Mínimo", "Estado"));
 
     public CatalogoVista() {
         super(new BorderLayout(0, 8));

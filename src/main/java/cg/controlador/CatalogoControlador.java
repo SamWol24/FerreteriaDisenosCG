@@ -75,7 +75,7 @@ public final class CatalogoControlador {
             if (clave.toLowerCase(Locale.ROOT).contains(busqueda)) {
                 visibles.add(p);
                 tabla.addRow(new Object[]{p.codigo(), p.nombre(), p.categoria().nombre(), marca,
-                    p.unidad(), Estilo.cop(p.venta()), p.inventario().cantidad(),
+                    p.unidad(), Estilo.cop(p.venta()), p.inventario().cantidad(),p.inventario().minimo(),
                     !p.activo() ? "Inactivo" : p.inventario().stockBajo() ? "Stock bajo" : "Activo"});
             }
         }
