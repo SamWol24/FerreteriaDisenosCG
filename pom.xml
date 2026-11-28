@@ -9,12 +9,20 @@
         <exec.mainClass>cg.App</exec.mainClass>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>3.5.3</version>
-        </dependency>
-    </dependencies>
+    <!-- Conexion con MariaDB -->
+    <dependency>
+        <groupId>org.mariadb.jdbc</groupId>
+        <artifactId>mariadb-java-client</artifactId>
+        <version>3.5.3</version>
+    </dependency>
+
+    <!-- Seguridad para las contraseñas -->
+    <dependency>
+        <groupId>org.mindrot</groupId>
+        <artifactId>jbcrypt</artifactId>
+        <version>0.4</version>
+    </dependency>
+</dependencies>
     <build>
         <plugins>
             <plugin>
