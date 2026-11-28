@@ -32,6 +32,7 @@ public final class CatalogoControlador {
         vista.nuevo.addActionListener(e -> limpiar());
         vista.cargar.addActionListener(e -> cargar());
         vista.guardar.addActionListener(e -> guardar());
+        vista.eliminar.addActionListener(e -> eliminar());
         vista.tabla.getSelectionModel().addListSelectionListener(e -> {
             int fila = vista.tabla.getSelectedRow();
             if (!actualizando && !e.getValueIsAdjusting() && fila >= 0) {
@@ -140,4 +141,33 @@ public final class CatalogoControlador {
             Acciones.error(vista, ex.getMessage());
         }
     }
+    private void eliminar() {
+    if (id == 0) {
+        Acciones.error(vista, "Selecciona un producto para eliminar.");
+        return;
+    }
+
+    int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
+            vista,
+            "¿Deseas eliminar este producto del catálogo?",
+            "Confirmar eliminación",
+            javax.swing.JOptionPane.YES_NO_OPTION
+    );
+
+    if (confirmacion != javax.swing.JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    int idProducto = id;
+
+    Acciones.consultar(vista, () -> {
+        dao.eliminar(idProducto);
+        return idProducto;
+    }, resultado -> {
+        javax.swing.JOptionPane.showMessageDialog(
+                vista, "Producto desactivado correctamente."
+        );
+        cargar();
+    });
+}
 }

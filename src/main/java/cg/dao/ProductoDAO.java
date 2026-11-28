@@ -29,13 +29,16 @@ public final class ProductoDAO {
 
     public List<Producto> listar() throws SQLException {
         String sql = """
-                SELECT p.*, c.nombre AS categoria, m.nombre AS marca,
-                    COALESCE(i.cantidad, 0) AS cantidad, COALESCE(i.stock_minimo, 0) AS stock_minimo
-                FROM producto p JOIN categoria c USING (id_categoria)
-                LEFT JOIN marca m USING (id_marca)
-                LEFT JOIN inventario i USING (id_producto)
-                ORDER BY p.nombre
-                """;
+        SELECT p.*, c.nombre AS categoria, m.nombre AS marca,
+            COALESCE(i.cantidad, 0) AS cantidad,
+            COALESCE(i.stock_minimo, 0) AS stock_minimo
+        FROM producto p
+        JOIN categoria c USING (id_categoria)
+        LEFT JOIN marca m USING (id_marca)
+        LEFT JOIN inventario i USING (id_producto)
+        WHERE p.estado = TRUE
+        ORDER BY p.nombre
+        """;
         var lista = new ArrayList<Producto>();
         try (var cn = Conexion.abrir(); var ps = cn.prepareStatement(sql); var rs = ps.executeQuery()) {
             while (rs.next()) {
@@ -108,4 +111,21 @@ public final class ProductoDAO {
             ps.executeUpdate();
         }
     }
+    public void eliminar(int id) throws SQLException {
+    String sql = """
+        UPDATE producto
+        SET estado = FALSE
+        WHERE id_producto = ?
+        """;
+
+    try (var cn = Conexion.abrir();
+         var ps = cn.prepareStatement(sql)) {
+
+        ps.setInt(1, id);
+
+        if (ps.executeUpdate() == 0) {
+            throw new SQLException("No se encontró el producto.");
+        }
+    }
+}
 }

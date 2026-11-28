@@ -21,6 +21,7 @@ public final class CatalogoVista extends JPanel {
     public final JButton nuevo = new JButton("Nuevo");
     public final JButton guardar = new JButton("Guardar");
     public final JButton cargar = new JButton("Recargar");
+    public final JButton eliminar = new JButton("Eliminar");
     public final JTable tabla = new JTable(Estilo.columnas(
             "Código", "Material", "Categoría", "Marca", "Unidad", "Precio", "Stock","Mínimo", "Estado"));
 
@@ -44,6 +45,7 @@ public final class CatalogoVista extends JPanel {
         datos.add(activo);
         JPanel botones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         botones.add(nuevo);
+        botones.add(eliminar);
         botones.add(guardar);
         JPanel inferior = new JPanel(new BorderLayout());
         inferior.add(datos, BorderLayout.CENTER);
